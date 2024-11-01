@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
+import plotly.graph_objects as go
 
 # Carregar os dados do Excel
 file_path = "docsPGTWeb_SO_31out2024.xlsx"
@@ -54,14 +54,31 @@ total_por_tipo_assentamento = df.groupby(['Tipo de documento PGT', 'Assentamento
 st.subheader("Quantidade de documentos por tipo e assentamento")
 st.write(total_por_tipo_assentamento)
 
-# Adicionar seção para o total a atingir
-st.subheader("Meta de Solicitação de Documentação Complementar")
-total_atual = df[df['Tipo de documento PGT'] == 'Solicitação de documentação complementar'].shape[0]
-total_a_atingir = 674
-st.write(f"Total atual de 'Solicitação de documentação complementar': {total_atual}")
-st.write(f"Meta a atingir: {total_a_atingir}")
+# Adicionar barra de progresso para Solicitação de Documentação Complementar
+st.subheader("Progresso da Solicitação de Documentação Complementar")
 
-if total_atual >= total_a_atingir:
-    st.success("Meta atingida!")
-else:
-    st.warning(f"Faltam {total_a_atingir - total_atual} documentos para atingir a meta.")
+# Calcular o total atual de solicitações
+solicitacoes_atual = df[df['Tipo de documento PGT'] == 'Solicitação de documentação complementar'].shape[0]
+
+# Definir o total a atingir
+total_a_atingir = 674
+
+# Criar gráfico de barras empilhadas para mostrar o progresso
+fig_progress = go.Figure()
+
+fig_progress.add_trace(go.Bar(
+    name='Concluídos',
+    x=['Solicitações'],
+    y=[solicitacoes_atual],
+    marker_color='green'
+))
+
+fig_progress.add_trace(go.Bar(
+    name='Faltando',
+    x=['Solicitações'],
+    y=[max(0, total_a_atingir - solicitacoes_atual)],
+    marker_color='lightgrey'
+))
+
+fig_progress.update_layout(barmode='stack', title='Progresso das Solicitações de Documentação Complementar')
+st.plotly_chart(fig_progress)
