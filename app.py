@@ -10,24 +10,25 @@ df = pd.read_excel(file_path)
 # Definir título do aplicativo
 st.title("Dashboard de Documentos PGT")
 
+# Preencher valores vazios na coluna "Objetivo" com "Não especificado"
+if 'Objetivo' in df.columns:
+    df['Objetivo'].fillna('Não especificado', inplace=True)
+
 # Filtros laterais
 tipos_documento = ['Todos'] + sorted(list(df['Tipo de documento PGT'].unique()))
 assentamentos = ['Todos'] + sorted(list(df['Assentamento'].unique()))
 nomes_t1 = ['Todos'] + sorted(list(df['Nome T1'].unique()))
-objetivo = ['Todos'] + sorted(list(df['Objetivo'].unique()))
 
-# Verificar se a coluna "Objetivo" existe
+# Verificar se a coluna "Objetivo" existe e criar lista de opções
 if 'Objetivo' in df.columns:
     objetivos = ['Todos'] + sorted(list(df['Objetivo'].unique()))
-    selected_objetivo = st.sidebar.selectbox("Selecione um objetivo:", objetivos, key="objetivo")
 else:
     objetivos = ['Todos']
-    selected_objetivo = 'Todos'
 
 selected_tipo_documento = st.sidebar.selectbox("Selecione um tipo de documento:", tipos_documento, key="tipo_documento")
 selected_assentamento = st.sidebar.selectbox("Selecione um assentamento:", assentamentos, key="assentamento")
 selected_nome_t1 = st.sidebar.selectbox("Selecione um nome T1:", nomes_t1, key="nome_t1")
-selected_objetivo = st.sidebar.selectbox("Selecione o objetivo:", nomes_t1, key="objetivo")
+selected_objetivo = st.sidebar.selectbox("Selecione um objetivo:", objetivos, key="objetivo")
 
 # Filtrar por tipo de documento
 if selected_tipo_documento != "Todos":
