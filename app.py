@@ -53,3 +53,15 @@ st.write(df)
 total_por_tipo_assentamento = df.groupby(['Tipo de documento PGT', 'Assentamento']).size().reset_index(name='Quantidade de Documentos')
 st.subheader("Quantidade de documentos por tipo e assentamento")
 st.write(total_por_tipo_assentamento)
+
+# Adicionar seção para o total a atingir
+st.subheader("Meta de Solicitação de Documentação Complementar")
+total_atual = df[df['Tipo de documento PGT'] == 'Solicitação de documentação complementar'].shape[0]
+total_a_atingir = 674
+st.write(f"Total atual de 'Solicitação de documentação complementar': {total_atual}")
+st.write(f"Meta a atingir: {total_a_atingir}")
+
+if total_atual >= total_a_atingir:
+    st.success("Meta atingida!")
+else:
+    st.warning(f"Faltam {total_a_atingir - total_atual} documentos para atingir a meta.")
