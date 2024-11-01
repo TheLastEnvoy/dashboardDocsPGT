@@ -85,7 +85,8 @@ fig_progress.update_layout(
     barmode='stack',
     title='Progresso das Solicitações de Documentação Complementar',
     xaxis_title='Status',
-    yaxis_title='Número de Documentos'
+    yaxis_title='Número de Documentos',
+    yaxis=dict(range=[0, total_a_atingir])  # Define o range do eixo y para sempre mostrar a meta completa
 )
 
 st.plotly_chart(fig_progress)
