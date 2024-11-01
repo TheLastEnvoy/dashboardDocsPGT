@@ -27,6 +27,7 @@ else:
 selected_tipo_documento = st.sidebar.selectbox("Selecione um tipo de documento:", tipos_documento, key="tipo_documento")
 selected_assentamento = st.sidebar.selectbox("Selecione um assentamento:", assentamentos, key="assentamento")
 selected_nome_t1 = st.sidebar.selectbox("Selecione um nome T1:", nomes_t1, key="nome_t1")
+selected_objetivo = st.sidebar.selectbox("Selecione o objetivo:", nomes_t1, key="objetivo")
 
 # Filtrar por tipo de documento
 if selected_tipo_documento != "Todos":
