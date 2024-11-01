@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # Carregar os dados do Excel
-file_path = "docsPGTWeb_SO_31out2024.xlsx"
+file_path = "docsPGTWeb_SO_01nov2024.xlsx"
 df = pd.read_excel(file_path)
 
 # Definir título do aplicativo
@@ -14,10 +14,12 @@ st.title("Dashboard de Documentos PGT")
 tipos_documento = ['Todos'] + sorted(list(df['Tipo de documento PGT'].unique()))
 assentamentos = ['Todos'] + sorted(list(df['Assentamento'].unique()))
 nomes_t1 = ['Todos'] + sorted(list(df['Nome T1'].unique()))
+objetivos = ['Todos'] + sorted(list(df['Objetivo'].unique()))
 
 selected_tipo_documento = st.sidebar.selectbox("Selecione um tipo de documento:", tipos_documento, key="tipo_documento")
 selected_assentamento = st.sidebar.selectbox("Selecione um assentamento:", assentamentos, key="assentamento")
 selected_nome_t1 = st.sidebar.selectbox("Selecione um nome T1:", nomes_t1, key="nome_t1")
+selected_objetivo = st.sidebar.selectbox("Selecione um objetivo:", objetivos, key="objetivo")
 
 # Filtrar por tipo de documento
 if selected_tipo_documento != "Todos":
@@ -30,6 +32,10 @@ if selected_assentamento != "Todos":
 # Filtrar por nome T1
 if selected_nome_t1 != "Todos":
     df = df[df['Nome T1'] == selected_nome_t1]
+
+# Filtrar por objetivo
+if selected_objetivo != "Todos":
+    df = df[df['Objetivo'] == selected_objetivo]
 
 # Gráfico de pizza para tipos de documento
 st.subheader("Distribuição por Tipo de Documento")
@@ -45,6 +51,11 @@ st.plotly_chart(fig_tipo_documento)
 st.subheader("Distribuição por Assentamento")
 assentamento_data = df['Assentamento'].value_counts()
 st.bar_chart(assentamento_data)
+
+# Gráfico de barras para objetivos
+st.subheader("Distribuição por Objetivo")
+objetivo_data = df['Objetivo'].value_counts()
+st.bar_chart(objetivo_data)
 
 # Exibir tabela interativa
 st.subheader("Relação de Documentos")
