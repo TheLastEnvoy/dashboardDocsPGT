@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # Carregar os dados do Excel
-file_path = "docsPGTWeb_01nov2024.xlsx"
+file_path = "docsPGTWeb_SO_01nov2024.xlsx"
 df = pd.read_excel(file_path)
 
 # Definir título do aplicativo
