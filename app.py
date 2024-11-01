@@ -81,5 +81,11 @@ fig_progress.add_trace(go.Bar(
     marker_color='lightgrey'
 ))
 
-fig_progress.update_layout(barmode='stack', title='Progresso das Solicitações de Documentação Complementar')
+fig_progress.update_layout(
+    barmode='stack',
+    title='Progresso das Solicitações de Documentação Complementar',
+    xaxis_title='Status',
+    yaxis_title='Número de Documentos'
+)
+
 st.plotly_chart(fig_progress)
