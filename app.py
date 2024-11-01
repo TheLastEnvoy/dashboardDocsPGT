@@ -14,6 +14,7 @@ st.title("Dashboard de Documentos PGT")
 tipos_documento = ['Todos'] + sorted(list(df['Tipo de documento PGT'].unique()))
 assentamentos = ['Todos'] + sorted(list(df['Assentamento'].unique()))
 nomes_t1 = ['Todos'] + sorted(list(df['Nome T1'].unique()))
+objetivo = ['Todos'] + sorted(list(df['Objetivo'].unique()))
 
 # Verificar se a coluna "Objetivo" existe
 if 'Objetivo' in df.columns:
